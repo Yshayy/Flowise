@@ -35,4 +35,10 @@ services:
             - GLOBAL_AGENT_NO_PROXY=${GLOBAL_AGENT_NO_PROXY}
         volumes:
             - ~/.flowise:/root/.flowise
+        networks:
+            - dokploy-network
         entrypoint: /bin/sh -c "sleep 3; flowise start"
+
+networks:
+ dokploy-network:
+   external: true
