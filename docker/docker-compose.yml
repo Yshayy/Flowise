@@ -33,8 +33,6 @@ services:
             - GLOBAL_AGENT_HTTP_PROXY=${GLOBAL_AGENT_HTTP_PROXY}
             - GLOBAL_AGENT_HTTPS_PROXY=${GLOBAL_AGENT_HTTPS_PROXY}
             - GLOBAL_AGENT_NO_PROXY=${GLOBAL_AGENT_NO_PROXY}
-        ports:
-            - '${PORT}:${PORT}'
         volumes:
             - ~/.flowise:/root/.flowise
         entrypoint: /bin/sh -c "sleep 3; flowise start"
