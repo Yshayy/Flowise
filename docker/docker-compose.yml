@@ -49,12 +49,6 @@ services:
             - REDIS_CERT=${REDIS_CERT}
             - REDIS_KEY=${REDIS_KEY}
             - REDIS_CA=${REDIS_CA}
-        healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost:${PORT}/api/v1/ping']
-            interval: 10s
-            timeout: 5s
-            retries: 5
-            start_period: 30s
         volumes:
             - ~/.flowise:/root/.flowise
         networks:
