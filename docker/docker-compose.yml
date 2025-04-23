@@ -60,6 +60,13 @@ services:
         networks:
             - dokploy-network
         entrypoint: /bin/sh -c "sleep 3; flowise start"
+        labels:
+        - traefik.enable=true
+        - traefik.http.routers.flowise.middlewares=traefik-forward-auth@file
+        - traefik.http.routers.flowise.tls.certresolver=letsencrypt
+        - traefik.http.services.flowise.port=3000
+        - traefik.http.routers.flowise.service=flowise§
+        - traefik.http.routers.flowise.rule=Host(`flowise.apps-cluster.livecycle.xyz`)
 
 networks:
  dokploy-network:
