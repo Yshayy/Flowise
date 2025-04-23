@@ -59,4 +59,10 @@ services:
             start_period: 30s
         volumes:
             - ~/.flowise:/root/.flowise
+        networks:
+            - dokploy-network
         entrypoint: /bin/sh -c "sleep 3; flowise start"
+
+networks:
+ dokploy-network:
+   external: true
