@@ -62,11 +62,15 @@ services:
         entrypoint: /bin/sh -c "sleep 3; flowise start"
         labels:
         - traefik.enable=true
-        - traefik.http.routers.flowise.middlewares=traefik-forward-auth@file
+        - traefik.http.routers.flowise.entrypoints=websecure
+        - traefik.http.routers.flowise.priority=100
         - traefik.http.routers.flowise.tls.certresolver=letsencrypt
-        - traefik.http.services.flowise.port=3000
-        - traefik.http.routers.flowise.service=flowise§
-        - traefik.http.routers.flowise.rule=Host(`flowise.apps-cluster.livecycle.xyz`)
+        - traefik.http.services.flowise.loadbalancer.server.port=3000
+        - traefik.http.routers.flowise.service=flowise
+        - "traefik.http.routers.flowise.rule=Host(`flowise.apps-cluster.livecycle.xyz`)"
+        - "traefik.http.middlewares.override-forwarded-proto.headers.customrequestheaders.X-Forwarded-Proto=https"
+        - "traefik.http.middlewares.override-forwarded-protossl.headers.sslproxyheaders.X-Forwarded-Proto=https"
+        - traefik.http.routers.flowise.middlewares=traefik-forward-auth@file
 
 networks:
  dokploy-network:
